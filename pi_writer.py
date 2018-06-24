@@ -64,10 +64,10 @@ def get_and_write(file, stdscr):
 def main(stdscr):
   curses.curs_set(0)
 
-  filename = latest_file() or new_file()
-
   if not os.path.exists(FILE_STORE):
       os.makedirs(FILE_STORE)
+
+  filename = latest_file() or new_file()
 
   try:
     while True:
