@@ -1,9 +1,12 @@
 from datetime import datetime
 
 import os
+import pathlib
 import sys
 
-FILE_STORE = '/Users/strathmeyer/Documents/writing/'
+
+FILE_STORE = os.path.join(pathlib.Path.home(), 'Documents', 'writing')
+
 
 def new_file():
   return datetime.today().strftime('%Y%m%d_%H%M%S') + '.txt';
