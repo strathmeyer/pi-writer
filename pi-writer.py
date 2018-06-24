@@ -24,6 +24,9 @@ def latest_file():
 
 
 def main():
+  if not os.path.exists(FILE_STORE):
+      os.makedirs(FILE_STORE)
+
   filename = latest_file() or new_file()
 
   while True:
