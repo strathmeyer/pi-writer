@@ -6,8 +6,8 @@ import os
 import pathlib
 import sys
 
-
-FILE_STORE = os.path.join(pathlib.Path.home(), 'Documents', 'writing')
+HOME = str(pathlib.Path.home())
+FILE_STORE = os.path.join(HOME, 'Documents', 'writing')
 
 
 def new_file():
