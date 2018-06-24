@@ -11,7 +11,8 @@ def new_file():
 
 def latest_file():
   all_files = os.listdir(FILE_STORE)
-  plain_files = list(filter(lambda x: os.path.isfile(os.path.join(FILE_STORE, x)), all_files))
+  no_directories = lambda x: os.path.isfile(os.path.join(FILE_STORE, x))
+  plain_files = list(filter(no_directories, all_files))
 
   try:
     return plain_files[-1]
