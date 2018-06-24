@@ -3,9 +3,12 @@ from datetime import datetime
 import curses
 import curses.ascii
 import os
+import pathlib
 import sys
 
-FILE_STORE = '/Users/strathmeyer/Documents/writing/'
+
+FILE_STORE = os.path.join(pathlib.Path.home(), 'Documents', 'writing')
+
 
 def new_file():
   return datetime.today().strftime('%Y%m%d_%H%M%S') + '.txt';
@@ -62,6 +65,9 @@ def main(stdscr):
   curses.curs_set(0)
 
   filename = latest_file() or new_file()
+
+  if not os.path.exists(FILE_STORE):
+      os.makedirs(FILE_STORE)
 
   try:
     while True:
