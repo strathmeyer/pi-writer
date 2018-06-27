@@ -30,12 +30,53 @@ def desired_char(char):
     char == '\n'
 
 
+class Cursor():
+  # Curses uses Y, X syntax, so we will too.
+  BASE_Y = 1
+  BASE_X = 0
+
+  def __init__(self, stdscr):
+    self.stdscr = stdscr
+    self.reset()
+
+  def getch(self):
+    return self.stdscr.getch(self.y, self.x)
+
+  def increment(self):
+    new_y = self.y
+    new_x = self.x + 1
+
+    (height, width) = self.stdscr.getmaxyx()
+
+    if (new_x >= width):
+      new_y = self.y + 1
+      new_x = self.__class__.BASE_X
+
+    if (new_y >= height - 1):
+      self.reset()
+    else:
+      self.y = new_y
+      self.x = new_x
+      self.update()
+
+  def reset(self):
+    self.y = self.__class__.BASE_Y
+    self.x = self.__class__.BASE_X
+    self.update()
+
+  def update(self):
+    self.stdscr.move(self.y, self.x)
+
+  def write(self, char):
+    self.stdscr.addstr(0, 0, "y:{y} x:{x}".format(y=self.y, x=self.x))
+    self.stdscr.addstr(self.y, self.x, char)
+
+
 def get_and_write(file, stdscr):
-  cursor_pos = 0
-  stdscr.move(1, 0)
+  cursor = Cursor(stdscr)
 
   while True:
-    chr_code = stdscr.getch(1, cursor_pos)
+    chr_code = cursor.getch()
 
     try:
       char = chr(chr_code)
@@ -48,15 +89,13 @@ def get_and_write(file, stdscr):
     elif char == '\n':
       file.write(char)
       file.flush()
-      cursor_pos = 0
-      stdscr.move(1, 0)
-      stdscr.clrtoeol()
+      cursor.reset()
+      stdscr.clrtobot()
     elif desired_char(char):
-      stdscr.addstr(1, cursor_pos, char)
+      cursor.write(char)
+      cursor.increment()
       file.write(char)
       file.flush()
-      (_, width) = stdscr.getmaxyx()
-      cursor_pos = min(cursor_pos + 1, width - 1)
 
     stdscr.refresh()
 
