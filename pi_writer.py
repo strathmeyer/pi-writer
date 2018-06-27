@@ -68,7 +68,6 @@ class Cursor():
     self.stdscr.move(self.y, self.x)
 
   def write(self, char):
-    self.stdscr.addstr(0, 0, "y:{y} x:{x}".format(y=self.y, x=self.x))
     self.stdscr.addstr(self.y, self.x, char)
 
 
