@@ -7,7 +7,11 @@ import pathlib
 import sys
 
 HOME = str(pathlib.Path.home())
-FILE_STORE = os.path.join(HOME, 'Documents', 'writing')
+
+if (os.path.exists(os.path.join(os.sep, 'media', 'usb'))):
+  FILE_STORE = os.path.join(os.sep, 'media', 'usb', 'writing')
+else:
+  FILE_STORE = os.path.join(HOME, 'Documents', 'writing')
 
 
 def new_file():
