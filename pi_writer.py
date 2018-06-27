@@ -8,8 +8,8 @@ import sys
 
 HOME = str(pathlib.Path.home())
 
-if (os.path.exists(os.path.join(os.sep, 'media', 'usb'))):
-  FILE_STORE = os.path.join(os.sep, 'media', 'usb', 'writing')
+if (os.path.exists(os.path.join(os.sep, 'mnt', 'usb'))):
+  FILE_STORE = os.path.join(os.sep, 'mnt', 'usb', 'writing')
 else:
   FILE_STORE = os.path.join(HOME, 'Documents', 'writing')
 
