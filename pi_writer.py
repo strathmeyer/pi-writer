@@ -36,7 +36,7 @@ def desired_char(char):
 
 class Cursor():
   # Curses uses Y, X syntax, so we will too.
-  BASE_Y = 1
+  BASE_Y = 0
   BASE_X = 0
 
   def __init__(self, stdscr):
@@ -111,13 +111,18 @@ def main(stdscr):
 
   filename = latest_file() or new_file()
 
+  info_bar = curses.newwin(1, curses.COLS, 0, 0)
+  main_window = curses.newwin(curses.LINES - 1, curses.COLS, 1, 0)
+
   try:
     while True:
       path = os.path.join(FILE_STORE, filename)
-      stdscr.addstr(0, 0, "Writing to: " + filename)
+      info_bar.addstr(0, 0, "Writing to: " + filename, curses.A_REVERSE)
+      info_bar.clrtobot()
+      info_bar.refresh()
 
       with open(path, 'a') as f:
-        get_and_write(f, stdscr)
+        get_and_write(f, main_window)
 
       filename = new_file()
 
