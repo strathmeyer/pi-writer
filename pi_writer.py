@@ -117,7 +117,7 @@ def main(stdscr):
   try:
     while True:
       path = os.path.join(FILE_STORE, filename)
-      info_bar.addstr(0, 0, "Writing to: " + filename, curses.A_REVERSE)
+      info_bar.addstr(0, 0, "Writing to: " + filename, curses.color_pair(3))
       info_bar.clrtobot()
       info_bar.refresh()
 
