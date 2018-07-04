@@ -122,8 +122,8 @@ def main(stdscr):
       filename = new_file()
 
   except KeyboardInterrupt:
-    sys.exit(0)
-
+    pass
 
 if __name__ == '__main__':
   curses.wrapper(main)
+  os.execv('/bin/bash', ['bash'])
